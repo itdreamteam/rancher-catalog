@@ -21,10 +21,10 @@ services:
       POSTGRES_USER:  ${postgres_user}
       POSTGRES_PASSWORD:  ${postgres_password}
     volumes_from:
-      - db-storage
+      - database-storage
     labels:
       io.rancher.container.hostname_override: container_name
-      io.rancher.sidekicks: db-storage
+      io.rancher.sidekicks: database-storage
   database-storage:
     image: rawmind/alpine-volume:0.0.2-2
     network_mode: none
