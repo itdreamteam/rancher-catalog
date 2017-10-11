@@ -1,24 +1,12 @@
 version: '2'
 services:
-  sonarqube-storage:
-    image: rawmind/alpine-volume:0.0.2-2
-    environment:
-      - SERVICE_UID=0
-      - SERVICE_GID=0
-      - SERVICE_VOLUME=/opt/sonarqube/extensions/plugins
-    volumes:
-      - sonarqube-plugin:/opt/sonarqube/extensions/plugins
-    labels:
-      io.rancher.container.hostname_override: container_name
-      io.rancher.container.start_once: true
-    network_mode: none
   sonarqube:
     image: sonarqube:6.5-alpine
     environment:
-      SONARQUBE_WEB_JVM_OPTS: ${jvm_opts}
+      SONARQUBE_JDBC_URL: jdbc:postgresql://database:${postgres_port}/${postgres_db}
       SONARQUBE_JDBC_USERNAME: ${postgres_user}
       SONARQUBE_JDBC_PASSWORD: ${postgres_password}
-      SONARQUBE_JDBC_URL: jdbc:postgresql://database:${postgres_port}/${postgres_db}
+      SONARQUBE_WEB_JVM_OPTS: ${jvm_opts}
     volumes_from:
       - sonarqube-storage
     links:
@@ -29,9 +17,9 @@ services:
   database:
     image: postgres:9.6.3-alpine
     environment:
+      POSTGRES_DB:  ${postgres_db}
       POSTGRES_USER:  ${postgres_user}
       POSTGRES_PASSWORD:  ${postgres_password}
-      POSTGRES_DB:  ${postgres_db}
     volumes_from:
       - db-storage
     labels:
@@ -39,6 +27,7 @@ services:
       io.rancher.sidekicks: db-storage
   database-storage:
     image: rawmind/alpine-volume:0.0.2-2
+    network_mode: none
     environment:
       - SERVICE_UID=0
       - SERVICE_GID=0
@@ -48,9 +37,20 @@ services:
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
+  sonarqube-storage:
+    image: rawmind/alpine-volume:0.0.2-2
     network_mode: none
+    environment:
+      - SERVICE_UID=0
+      - SERVICE_GID=0
+      - SERVICE_VOLUME=/opt/sonarqube/extensions/plugins
+    volumes:
+      - sonarqube-plugin:/opt/sonarqube/extensions/plugins
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.start_once: true
 volumes:
   sonarqube-plugin:
-    driver: ${volume-driver}
+    driver: ${VOLUME_DRIVER}
   database-data:
-    driver: ${volume-driver}
+    driver: ${VOLUME_DRIVER}

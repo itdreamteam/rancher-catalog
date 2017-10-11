@@ -10,7 +10,7 @@ catalog:
       required: false
       default: ""
       type: "string"
-    - variable: volume-driver
+    - variable: VOLUME_DRIVER
       description: "SonarQube Volume Driver"
       label: "SonarQube Volume Driver"
       required: true
