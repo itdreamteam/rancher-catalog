@@ -26,6 +26,9 @@ services:
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
       KONG_HTTP2: on
+    depends_on:
+      postgres:
+        condition: service_healthy
     labels:
       io.rancher.container.hostname_override: container_name
     tty: true
@@ -43,6 +46,11 @@ services:
       KONG_ADMIN_ACCESS_LOG: /dev/stdout
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kong-migration:
+        condition: service_started
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.scheduler.global: true
