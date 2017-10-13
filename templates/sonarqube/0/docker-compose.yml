@@ -52,5 +52,7 @@ services:
 volumes:
   sonarqube-plugin:
     driver: ${VOLUME_DRIVER}
+    external: true
   database-data:
     driver: ${VOLUME_DRIVER}
+    external: true
