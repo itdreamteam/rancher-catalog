@@ -12,7 +12,7 @@ services:
      image: postgres:9.6.5-alpine
      stdin_open: true
      volumes:
-      - kong-postgres:/data/postgres/data
+      - {{ .Values.VOLUME_NAME }}:/data/postgres/data
   kong-migration:
     image: kong:0.11.0
     environment:
@@ -55,6 +55,6 @@ services:
       io.rancher.container.hostname_override: container_name
     tty: true
 volumes:
-  kong-postgres:
+  {{ .Values.VOLUME_NAME }}:
     driver: ${VOLUME_DRIVER}
     external: true

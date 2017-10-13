@@ -22,6 +22,12 @@
     required: true
     default: "rancher-efs"
     type: "string"
+  - variable: VOLUME_NAME
+    description: "Volume Name"
+    label: "Volume Name"
+    required: true
+    default: "kong-postgres"
+    type: "string"
 kong:
   retain_ip: true
   health_check:
