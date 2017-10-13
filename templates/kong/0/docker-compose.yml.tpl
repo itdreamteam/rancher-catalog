@@ -31,6 +31,7 @@ services:
       - postgres
     labels:
       io.rancher.container.hostname_override: container_name
+      io.rancher.container.start_once: true
     tty: true
     links:
       - postgres
@@ -48,6 +49,7 @@ services:
       KONG_ADMIN_ERROR_LOG: /dev/stderr
     depends_on:
       - postgres
+      - kong-migration
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.scheduler.global: true
