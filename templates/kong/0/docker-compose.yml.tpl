@@ -47,10 +47,10 @@ services:
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
     depends_on:
-      postgres:
-        condition: service_healthy
-      kong-migration:
-        condition: service_started
+      - postgres:
+          condition: service_healthy
+      - kong-migration:
+          condition: service_started
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.scheduler.global: true
