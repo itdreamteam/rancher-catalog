@@ -26,6 +26,7 @@ services:
       KONG_PROXY_ERROR_LOG: /dev/stderr
       KONG_ADMIN_ERROR_LOG: /dev/stderr
       KONG_HTTP2: on
+    command: kong migrations up
     depends_on:
       - postgres
     labels:
