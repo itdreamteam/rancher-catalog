@@ -1,0 +1,5 @@
+name: Kong PG
+description: |
+  Open-Source API Management and Microservice Management
+version: v0.11.0
+category: Load Balancing
