@@ -1,0 +1,30 @@
+version: '2'
+catalog:
+  name: "Redis"
+  version: "v4.0"
+  description: "Redis Cluster"
+  questions:
+    - variable: nb_nodes
+      description: "Number of Redis Nodes"
+      label: "Number of Nodes"
+      required: true
+      default: 3
+      type: "number"
+services:
+  redis-sentinel:
+    retain_ip: true
+    scale: ${nb_nodes}
+    start_on_create: true
+  redis-server:
+    retain_ip: true
+    scale: ${nb_nodes}
+    start_on_create: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 6379
+      unhealthy_threshold: 3
+      initializing_timeout: 60000
+      interval: 2000
+      strategy: none
+      reinitializing_timeout: 60000
