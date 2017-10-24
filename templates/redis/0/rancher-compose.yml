@@ -9,7 +9,7 @@ catalog:
       label: "Number of Nodes"
       required: true
       default: 3
-      type: "number"
+      type: "int"
 services:
   redis-sentinel:
     retain_ip: true
