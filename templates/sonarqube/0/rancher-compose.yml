@@ -14,7 +14,7 @@ catalog:
       description: "SonarQube Volume Driver"
       label: "SonarQube Volume Driver"
       required: true
-      default: "rancher-efs"
+      default: "rancher-nfs"
       type: "string"
     - variable: postgres_port
       description: "Postgres Port"

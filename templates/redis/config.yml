@@ -1,0 +1,5 @@
+name: Redis
+description: |
+  Redis Pixul - an open source in-memory key-value store.
+version: v4.0
+category: Databases
