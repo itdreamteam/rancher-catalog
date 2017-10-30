@@ -1,0 +1,52 @@
+version: '2'
+catalog:
+  name: "SonarQube"
+  version: "v6.6"
+  description: "SonarQube"
+  questions:
+    - variable: jvm_opts
+      description: "SonarQube web jvm options"
+      label: "SonarQube web jvm options"
+      required: false
+      default: ""
+      type: "string"
+    - variable: VOLUME_DRIVER
+      description: "SonarQube Volume Driver"
+      label: "SonarQube Volume Driver"
+      required: true
+      default: "rancher-nfs"
+      type: "string"
+    - variable: postgres_port
+      description: "Postgres Port"
+      label: "Postgres Port"
+      required: true
+      default: "5432"
+      type: "int"
+    - variable: postgres_db
+      description: "Postgres Database Name"
+      label: "Postgres Database"
+      required: true
+      default: "sonar"
+      type: "string"
+    - variable: postgres_user
+      description: "Postgres User"
+      label: "Postgres User"
+      required: true
+      default: "sonar"
+      type: "string"
+    - variable: postgres_password
+      description: "Postgres Password"
+      label: "Postgres Password"
+      required: true
+      default: "sonar"
+      type: "password"
+services:
+  sonarqube:
+    scale: 1
+    health_check:
+      port: 9000
+      interval: 5000
+      unhealthy_threshold: 3
+      request_line: 'GET / HTTP/1.0'
+      healthy_threshold: 2
+      response_timeout: 5000
