@@ -33,7 +33,7 @@ services:
       - SERVICE_GID=0
       - SERVICE_VOLUME=/var/lib/postgresql
     volumes:
-      - database-data:/var/lib/postgresql
+      - sonarqube-data:/var/lib/postgresql
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
@@ -53,6 +53,6 @@ volumes:
   sonarqube-plugin:
     driver: ${VOLUME_DRIVER}
     external: true
-  database-data:
+  sonarqube-data:
     driver: ${VOLUME_DRIVER}
     external: true
