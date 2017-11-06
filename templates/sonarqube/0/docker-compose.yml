@@ -10,7 +10,7 @@ services:
     volumes_from:
       - config
       - data
-      - plugin
+      - plugins
     links:
       - database
     labels:
