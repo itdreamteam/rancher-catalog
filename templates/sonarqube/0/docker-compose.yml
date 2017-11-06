@@ -20,8 +20,8 @@ services:
       image: rawmind/alpine-volume:0.0.2-2
       network_mode: none
       environment:
-        - SERVICE_UID=0
-        - SERVICE_GID=0
+        - SERVICE_UID=1000
+        - SERVICE_GID=1000
         - SERVICE_VOLUME=/opt/sonarqube/config
       volumes:
         - sonarqube-config:/opt/sonarqube/config
@@ -32,8 +32,8 @@ services:
       image: rawmind/alpine-volume:0.0.2-2
       network_mode: none
       environment:
-        - SERVICE_UID=0
-        - SERVICE_GID=0
+        - SERVICE_UID=1000
+        - SERVICE_GID=1000
         - SERVICE_VOLUME=/opt/sonarqube/extensions/plugins
       volumes:
         - sonarqube-plugin:/opt/sonarqube/extensions/plugins
@@ -44,8 +44,8 @@ services:
       image: rawmind/alpine-volume:0.0.2-2
       network_mode: none
       environment:
-        - SERVICE_UID=0
-        - SERVICE_GID=0
+        - SERVICE_UID=1000
+        - SERVICE_GID=1000
         - SERVICE_VOLUME=/opt/sonarqube/data
       volumes:
         - sonarqube-data:/opt/sonarqube/data
@@ -67,8 +67,8 @@ services:
     image: rawmind/alpine-volume:0.0.2-2
     network_mode: none
     environment:
-      - SERVICE_UID=0
-      - SERVICE_GID=0
+      - SERVICE_UID=1000
+      - SERVICE_GID=1000
       - SERVICE_VOLUME=/var/lib/postgresql
     volumes:
       - sonarqube-storage:/var/lib/postgresql
