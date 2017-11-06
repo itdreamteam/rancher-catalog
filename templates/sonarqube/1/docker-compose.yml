@@ -8,7 +8,9 @@ services:
       SONARQUBE_JDBC_PASSWORD: ${postgres_password}
       SONARQUBE_WEB_JVM_OPTS: ${jvm_opts}
     volumes_from:
-      - sonarqube-storage
+      - sonarqube-config
+      - sonarqube-data
+      - sonarqube-extensions
     links:
       - database:database
     labels:
