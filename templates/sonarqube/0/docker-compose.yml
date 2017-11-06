@@ -34,9 +34,9 @@ services:
       environment:
         - SERVICE_UID=1000
         - SERVICE_GID=1000
-        - SERVICE_VOLUME=/opt/sonarqube/extensions/plugins
+        - SERVICE_VOLUME=/opt/sonarqube/extensions
       volumes:
-        - sonarqube-plugin:/opt/sonarqube/extensions/plugins
+        - sonarqube-plugin:/opt/sonarqube/extensions
       labels:
         io.rancher.container.hostname_override: container_name
         io.rancher.container.start_once: true
