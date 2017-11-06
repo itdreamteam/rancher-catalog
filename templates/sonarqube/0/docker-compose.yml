@@ -13,7 +13,7 @@ services:
       - database:database
     labels:
       io.rancher.container.hostname_override: container_name
-      io.rancher.sidekicks: sonarqube-storage
+      io.rancher.sidekicks: sonarqube-config, sonarqube-extensions, sonarqube-data
   database:
     image: postgres:9.6.3-alpine
     environment:
@@ -37,13 +37,37 @@ services:
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
-  sonarqube-storage:
+  sonarqube-config:
     image: rawmind/alpine-volume:0.0.2-2
     network_mode: none
     environment:
       - SERVICE_UID=0
       - SERVICE_GID=0
-      - SERVICE_VOLUME=/opt/sonarqube
+      - SERVICE_VOLUME=/opt/sonarqube/config
+    volumes:
+      - sonarqube-config:/opt/sonarqube
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.start_once: true
+  sonarqube-data:
+    image: rawmind/alpine-volume:0.0.2-2
+    network_mode: none
+    environment:
+      - SERVICE_UID=0
+      - SERVICE_GID=0
+      - SERVICE_VOLUME=/opt/sonarqube/data
+    volumes:
+      - sonarqube-config:/opt/sonarqube
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.start_once: true
+  sonarqube-extensions:
+    image: rawmind/alpine-volume:0.0.2-2
+    network_mode: none
+    environment:
+      - SERVICE_UID=0
+      - SERVICE_GID=0
+      - SERVICE_VOLUME=/opt/sonarqube/extensions
     volumes:
       - sonarqube-config:/opt/sonarqube
     labels:
