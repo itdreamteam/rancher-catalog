@@ -13,7 +13,7 @@ services:
       - database:database
     labels:
       io.rancher.container.hostname_override: container_name
-      io.rancher.sidekicks: sonarqube-config, sonarqube-data, sonarqube-extensions,
+      io.rancher.sidekicks: sonarqube-config,sonarqube-data,sonarqube-extensions
   database:
     image: postgres:9.6.3-alpine
     environment:
