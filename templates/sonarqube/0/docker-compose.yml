@@ -10,11 +10,12 @@ services:
     volumes_from:
       - config
       - data
+      - plugin
     links:
       - database
     labels:
       io.rancher.container.hostname_override: container_name
-      io.rancher.sidekicks: config,data
+      io.rancher.sidekicks: config,data,plugins
   config:
       image: rawmind/alpine-volume:0.0.2-2
       network_mode: none
@@ -27,6 +28,18 @@ services:
       labels:
         io.rancher.container.hostname_override: container_name
         io.rancher.container.start_once: true
+  plugins:
+      image: rawmind/alpine-volume:0.0.2-2
+      network_mode: none
+      environment:
+        - SERVICE_UID=0
+        - SERVICE_GID=0
+        - SERVICE_VOLUME=/opt/sonarqube/extensions/plugins
+      volumes:
+        - sonarqube-plugin:/opt/sonarqube/extensions/plugins
+      labels:
+        io.rancher.container.hostname_override: container_name
+        io.rancher.container.start_once: true
   data:
       image: rawmind/alpine-volume:0.0.2-2
       network_mode: none
@@ -35,7 +48,7 @@ services:
         - SERVICE_GID=0
         - SERVICE_VOLUME=/opt/sonarqube/data
       volumes:
-        - sonarqube-config:/opt/sonarqube/data
+        - sonarqube-data:/opt/sonarqube/data
       labels:
         io.rancher.container.hostname_override: container_name
         io.rancher.container.start_once: true
@@ -58,7 +71,7 @@ services:
       - SERVICE_GID=0
       - SERVICE_VOLUME=/var/lib/postgresql
     volumes:
-      - sonarqube-data:/var/lib/postgresql
+      - sonarqube-storage:/var/lib/postgresql
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
@@ -67,6 +80,9 @@ volumes:
     driver: ${VOLUME_DRIVER}
     external: true
   sonarqube-data:
+    driver: ${VOLUME_DRIVER}
+    external: true
+  sonarqube-plugin:
     driver: ${VOLUME_DRIVER}
     external: true
   sonarqube-storage:
