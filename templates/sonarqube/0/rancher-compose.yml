@@ -1,7 +1,7 @@
 version: '2'
 catalog:
   name: "SonarQube"
-  version: "v6.5"
+  version: "v6.6"
   description: "SonarQube"
   questions:
     - variable: jvm_opts
