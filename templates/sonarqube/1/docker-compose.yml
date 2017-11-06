@@ -43,14 +43,14 @@ services:
     environment:
       - SERVICE_UID=0
       - SERVICE_GID=0
-      - SERVICE_VOLUME=/opt/sonarqube/extensions/plugins
+      - SERVICE_VOLUME=/opt/sonarqube
     volumes:
-      - sonarqube-plugin:/opt/sonarqube/extensions/plugins
+      - sonarqube-config:/opt/sonarqube
     labels:
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
 volumes:
-  sonarqube-plugin:
+  sonarqube-config:
     driver: ${VOLUME_DRIVER}
     external: true
   sonarqube-data:
